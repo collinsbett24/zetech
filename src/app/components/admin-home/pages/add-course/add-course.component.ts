@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ApiServiceService } from 'src/app/services/api.service';
 import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
@@ -8,18 +9,18 @@ import { LoaderService } from 'src/app/services/loader.service';
   styleUrls: ['./add-course.component.css']
 })
 export class AddCourseComponent {
-  constructor(public loader:LoaderService, private fb:FormBuilder){
+  Message: string='';
+  ErrorMessage: string='';
+  constructor(public loader:LoaderService, private fb:FormBuilder, private api:ApiServiceService){
     
   }
   serviceForm = this.fb.group({
+    faculty:['', Validators.required],
     code:['', Validators.required],
-    description:['', Validators.required]
+    courseName:['', Validators.required]
   });
 
   ngOnInit(): void {
-    // this.api.getTransactionType().subscribe((response:any)=>{
-    //   // this.TransactionTypes=response;
-    // },(error:any)=>{})
   }
 
   get f(){
@@ -27,19 +28,18 @@ export class AddCourseComponent {
   }
 
   OnSubmit(){
-    // var formData = new FormData();
-    // formData.append('code', this.serviceForm?.get('code')?.value);
-    // formData.append('description', this.serviceForm?.get('description')?.value);
+    var formData = new FormData();
+    formData.append('code', this.serviceForm?.get('code')?.value || '');
+    formData.append('faculty', this.serviceForm?.get('faculty')?.value || '');
+    formData.append('courseName', this.serviceForm?.get('courseName')?.value || '');
 
-    // this.api.AddService(formData).subscribe(
-    //   (res:any)=>{
-    //     this.Message='Data Added successfully';
-    //   },
-    //   (error:any)=>{
-    //     this.ErrorMessage='Data Failed to add';
-    //   }
-    // );
-
-
+    this.api.AddCourse(formData).subscribe(
+      (res:any)=>{
+        this.Message=res.message;
+      },
+      (error:any)=>{
+        this.ErrorMessage='Data Failed to add';
+      }
+    );
   }
 }

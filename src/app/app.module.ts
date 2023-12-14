@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -14,6 +16,10 @@ import { AddCourseComponent } from './components/admin-home/pages/add-course/add
 import { AddStudentComponent } from './components/admin-home/pages/add-student/add-student.component';
 import { AddMarksComponent } from './components/admin-home/pages/add-marks/add-marks.component';
 import { AddUnitsComponent } from './components/admin-home/pages/add-units/add-units.component';
+import { ViewCoursesComponent } from './components/admin-home/pages/view-courses/view-courses.component';
+import { ViewStudentsComponent } from './components/admin-home/pages/view-students/view-students.component';
+import { ViewMarksComponent } from './components/admin-home/pages/view-marks/view-marks.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,13 +29,18 @@ import { AddUnitsComponent } from './components/admin-home/pages/add-units/add-u
     AddCourseComponent,
     AddStudentComponent,
     AddMarksComponent,
-    AddUnitsComponent
+    AddUnitsComponent,
+    ViewCoursesComponent,
+    ViewStudentsComponent,
+    ViewMarksComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     NoopAnimationsModule,
     MatProgressSpinnerModule
   ],

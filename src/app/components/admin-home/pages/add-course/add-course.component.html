@@ -1,3 +1,11 @@
+<div class="row page-titles">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active"><a href="javascript:void(0)">Form</a></li>
+    <li class="breadcrumb-item"><a href="javascript:void(0)">Add Course</a></li>
+  </ol>
+</div>
+<!-- row -->
+<div class="row">
 <div class="card">
     <div class="card-body">
       <div *ngIf="loader.isLoading |async">
@@ -7,51 +15,54 @@
         </ng-template>
     
         <mat-spinner></mat-spinner>
-        </div>
+      </div>
       <div class="basic-form">
+          <div *ngIf="Message"  class="alert alert-success">
+              {{Message}}
+          </div>
+          <div *ngIf="ErrorMessage"  class="alert alert-danger">
+              {{ErrorMessage}}
+          </div>
         <form [formGroup]="serviceForm" (ngSubmit)="OnSubmit()" method="post">
           <div class="row">
             <div class="mb-3 col-md-6">
-              <label class="form-label">Transaction Type</label>
-              <select  class="form-control" formControlName="transactionTypeId">
-                <option  class="form-control" value="types.id"></option>
+              <label class="form-label">Faculty</label>
+              <select  class="form-control" formControlName="faculty">
+                <option  class="form-control" value="Science">School of Science</option>
+                <option  class="form-control" value="Technology">School of Technology</option>
+                <option  class="form-control" value="Business">School of Business</option>
               </select>
+              <div *ngIf="f.faculty.invalid && (f.faculty.dirty || f.faculty.touched)"  class="alert alert-danger">
+                <div *ngIf="f.faculty.errors?.['required']">
+                  Faculty is required.
+                </div>
+              </div>
             </div>
             <div class="mb-3 col-md-6">
-              <label class="form-label">Service Name</label>
-              <input type="text" formControlName="serviceName" class="form-control" placeholder="Service Name">
-                                     </div>
+              <label class="form-label">Course Name</label>
+              <input type="text" formControlName="courseName" class="form-control" placeholder="Course Name">
+              <div *ngIf="f.courseName.invalid && (f.courseName.dirty || f.courseName.touched)"  class="alert alert-danger">
+                <div *ngIf="f.courseName.errors?.['required']">
+                  Name is required.
+                </div>
+              </div>
+            </div>
             <div class="mb-3 col-md-6">
-              <label class="form-label">Service Code</label>
-              <input type="text" formControlName="code" class="form-control" placeholder="Service Code">
+              <label class="form-label">Course Code</label>
+              <input type="text" formControlName="code" class="form-control" placeholder="Course Code">
               <div *ngIf="f.code.invalid && (f.code.dirty || f.code.touched)"  class="alert alert-danger">
                 <div *ngIf="f.code.errors?.['required']">
-                  Name is required.
+                  Code is required.
                 </div>
                 <div *ngIf="f.code.errors?.['minlength']">
-                  Name must be at least 4 characters long.
+                  Code must be at least 4 characters long.
                 </div>
               </div>
-            </div>
-            <div class="mb-3 col-md-6">
-              <label class="form-label">Description</label>
-              <input type="text" formControlName="description" class="form-control" placeholder="Description">
-              <div *ngIf="f.description.invalid && (f.description.dirty || f.description.touched)"  class="alert alert-danger">
-                <div *ngIf="f.description.errors?.['required']">
-                  Name is required.
-                </div>
-                <div *ngIf="f.description.errors?.['minlength']">
-                  Name must be at least 4 characters long.
-                </div>
-              </div>
-            </div>
-            <div class="mb-3 col-md-6">
-              <label>Queue Name</label>
-              <input type="text" formControlName="queueName" class="form-control">
             </div>
           </div>
           <button [disabled]="serviceForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
+  </div>
   </div>

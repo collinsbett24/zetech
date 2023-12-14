@@ -26,9 +26,22 @@
             ],
             "styles": [
               "src/custom-theme.scss",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/vendor/jquery-nice-select/css/nice-select.css", 
+              "src/assets/css/style.css",
+               "src/assets/vendor/nouislider/nouislider.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/vendor/global/global.min.js",
+              "src/assets/vendor/chart.js/Chart.bundle.min.js",
+              "src/assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js",
+              "src/assets/vendor/apexchart/apexchart.js",
+              "src/assets/vendor/nouislider/nouislider.min.js",
+              "src/assets/vendor/wnumb/wNumb.js",
+              "src/assets/js/dashboard/dashboard-1.js",
+              "src/assets/js/custom.min.js",
+              "src/assets/js/dlabnav-init.js",
+            ]
           },
           "configurations": {
             "production": {
@@ -88,9 +101,22 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/vendor/jquery-nice-select/css/nice-select.css", 
+              "src/assets/css/style.css",
+               "src/assets/vendor/nouislider/nouislider.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/vendor/global/global.min.js",
+              "src/assets/vendor/chart.js/Chart.bundle.min.js",
+              "src/assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js",
+              "src/assets/vendor/apexchart/apexchart.js",
+              "src/assets/vendor/nouislider/nouislider.min.js",
+              "src/assets/vendor/wnumb/wNumb.js",
+              "src/assets/js/dashboard/dashboard-1.js",
+              "src/assets/js/custom.min.js",
+              "src/assets/js/dlabnav-init.js",
+            ]
           }
         }
       }

@@ -1,57 +1,69 @@
-<div class="card">
-    <div class="card-body">
-      <div *ngIf="loader.isLoading |async">
-        <ng-template #customLoadingTemplate>
-            <div class="custom-class">
-            </div>
-        </ng-template>
-    
-        <mat-spinner></mat-spinner>
-        </div>
-      <div class="basic-form">
-        <form [formGroup]="serviceForm" (ngSubmit)="OnSubmit()" method="post">
-          <div class="row">
-            <div class="mb-3 col-md-6">
-              <label class="form-label">Transaction Type</label>
-              <select  class="form-control" formControlName="transactionTypeId">
-                <option  class="form-control" value="types.id"></option>
-              </select>
-            </div>
-            <div class="mb-3 col-md-6">
-              <label class="form-label">Service Name</label>
-              <input type="text" formControlName="serviceName" class="form-control" placeholder="Service Name">
-                                     </div>
-            <div class="mb-3 col-md-6">
-              <label class="form-label">Service Code</label>
-              <input type="text" formControlName="code" class="form-control" placeholder="Service Code">
-              <div *ngIf="f.code.invalid && (f.code.dirty || f.code.touched)"  class="alert alert-danger">
-                <div *ngIf="f.code.errors?.['required']">
-                  Name is required.
-                </div>
-                <div *ngIf="f.code.errors?.['minlength']">
-                  Name must be at least 4 characters long.
-                </div>
+<div class="row page-titles">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active"><a href="javascript:void(0)">Form</a></li>
+    <li class="breadcrumb-item"><a href="javascript:void(0)">Add Units</a></li>
+  </ol>
+</div>
+<!-- row -->
+<div class="row">
+  <div class="card">
+      <div class="card-body">
+        <div *ngIf="loader.isLoading |async">
+          <ng-template #customLoadingTemplate>
+              <div class="custom-class">
               </div>
-            </div>
-            <div class="mb-3 col-md-6">
-              <label class="form-label">Description</label>
-              <input type="text" formControlName="description" class="form-control" placeholder="Description">
-              <div *ngIf="f.description.invalid && (f.description.dirty || f.description.touched)"  class="alert alert-danger">
-                <div *ngIf="f.description.errors?.['required']">
-                  Name is required.
-                </div>
-                <div *ngIf="f.description.errors?.['minlength']">
-                  Name must be at least 4 characters long.
-                </div>
-              </div>
-            </div>
-            <div class="mb-3 col-md-6">
-              <label>Queue Name</label>
-              <input type="text" formControlName="queueName" class="form-control">
-            </div>
+          </ng-template>
+      
+          <mat-spinner></mat-spinner>
           </div>
-          <button [disabled]="serviceForm.invalid" type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        <div class="basic-form">
+          <form [formGroup]="serviceForm" (ngSubmit)="OnSubmit()" method="post">
+            <div *ngIf="Message"  class="alert alert-success">
+                {{Message}}
+            </div>
+            <div *ngIf="ErrorMessage"  class="alert alert-danger">
+                {{ErrorMessage}}
+            </div>
+            <div class="row">
+              <div class="mb-3 col-md-6" >
+                <label class="form-label">Course ID</label>
+                <select  class="form-control" formControlName="courseId" >
+                  <option *ngFor="let course of Courses" class="form-control" [value]="course.code">{{course.courseName}}</option>
+                </select>
+                <div *ngIf="f.courseId.invalid && (f.courseId.dirty || f.courseId.touched)"  class="alert alert-danger">
+                  <div *ngIf="f.courseId.errors?.['required']">
+                    Course is required.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label class="form-label">Unit Name</label>
+                <input type="text" formControlName="unitName" class="form-control" placeholder="Unit Name">
+                <div *ngIf="f.unitName.invalid && (f.unitName.dirty || f.unitName.touched)"  class="alert alert-danger">
+                  <div *ngIf="f.unitName.errors?.['required']">
+                    Unit Name is required.
+                  </div>
+                  <div *ngIf="f.code.errors?.['minlength']">
+                    Unit Name must be at least 4 characters long.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label class="form-label">Unit Code</label>
+                <input type="text" formControlName="code" class="form-control" placeholder="Unit Code">
+                <div *ngIf="f.code.invalid && (f.code.dirty || f.code.touched)"  class="alert alert-danger">
+                  <div *ngIf="f.code.errors?.['required']">
+                    Unit Code is required.
+                  </div>
+                  <div *ngIf="f.code.errors?.['minlength']">
+                    Unit Code must be at least 4 characters long.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button [disabled]="serviceForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
+</div>

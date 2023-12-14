@@ -1,57 +1,128 @@
-<div class="card">
+<div class="row page-titles">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active"><a href="javascript:void(0)">Form</a></li>
+    <li class="breadcrumb-item"><a href="javascript:void(0)">Add Marks</a></li>
+  </ol>
+</div>
+
+<div class="row">
+  <div class="card">
     <div class="card-body">
       <div *ngIf="loader.isLoading |async">
         <ng-template #customLoadingTemplate>
-            <div class="custom-class">
-            </div>
+          <div class="custom-class">
+          </div>
         </ng-template>
-    
+
         <mat-spinner></mat-spinner>
-        </div>
+      </div>
       <div class="basic-form">
-        <form [formGroup]="serviceForm" (ngSubmit)="OnSubmit()" method="post">
+        <div class="row page-titles">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Select Unit</a></li>
+          </ol>
+        </div>
+        <div *ngIf="Message" class="alert alert-success">
+          {{Message}}
+        </div>
+        <div *ngIf="ErrorMessage" class="alert alert-danger">
+          {{ErrorMessage}}
+        </div>
+        <form [formGroup]="selectUnit" (ngSubmit)="getStudents()" method="post">
           <div class="row">
-            <div class="mb-3 col-md-6">
-              <label class="form-label">Transaction Type</label>
-              <select  class="form-control" formControlName="transactionTypeId">
-                <option  class="form-control" value="types.id"></option>
+            <div class="mb-3 col-md-4">
+              <label class="form-label">Course</label>
+              <select class="form-control" formControlName="courseId" required>
+                <option *ngFor="let course of Courses" class="form-control" (click)="getUnits(course.code)"
+                  [value]="course.code">{{course.courseName}}</option>
               </select>
             </div>
-            <div class="mb-3 col-md-6">
-              <label class="form-label">Service Name</label>
-              <input type="text" formControlName="serviceName" class="form-control" placeholder="Service Name">
-                                     </div>
-            <div class="mb-3 col-md-6">
-              <label class="form-label">Service Code</label>
-              <input type="text" formControlName="code" class="form-control" placeholder="Service Code">
-              <div *ngIf="f.code.invalid && (f.code.dirty || f.code.touched)"  class="alert alert-danger">
-                <div *ngIf="f.code.errors?.['required']">
-                  Name is required.
-                </div>
-                <div *ngIf="f.code.errors?.['minlength']">
-                  Name must be at least 4 characters long.
-                </div>
-              </div>
+
+            <div class="mb-3 col-md-4">
+              <label class="form-label">Unit</label>
+              <select class="form-control" formControlName="unitCode" required>
+                <option *ngFor="let unit of Units" class="form-control" [value]="unit.code">{{unit.unitName}}</option>
+              </select>
+
             </div>
-            <div class="mb-3 col-md-6">
-              <label class="form-label">Description</label>
-              <input type="text" formControlName="description" class="form-control" placeholder="Description">
-              <div *ngIf="f.description.invalid && (f.description.dirty || f.description.touched)"  class="alert alert-danger">
-                <div *ngIf="f.description.errors?.['required']">
-                  Name is required.
-                </div>
-                <div *ngIf="f.description.errors?.['minlength']">
-                  Name must be at least 4 characters long.
-                </div>
-              </div>
-            </div>
-            <div class="mb-3 col-md-6">
-              <label>Queue Name</label>
-              <input type="text" formControlName="queueName" class="form-control">
+            <div class="mb-3 col-md-4">
+              <button type="submit" class="btn btn-primary">Submit</button>
             </div>
           </div>
-          <button [disabled]="serviceForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
   </div>
+</div>
+<!-- row -->
+<div class="row" *ngIf="Students.length>0">
+  <div class="card">
+    <div class="card-body">
+      <div *ngIf="loader.isLoading |async">
+        <ng-template #customLoadingTemplate>
+          <div class="custom-class">
+          </div>
+        </ng-template>
+
+        <mat-spinner></mat-spinner>
+      </div>
+      <!--     <div class="basic-form">
+        <div class="row page-titles">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Enter Marks</a></li>
+          </ol>
+        </div>
+        <form [formGroup]="serviceForm" (ngSubmit)="OnSubmit()" method="post">
+          <div *ngFor="let student of Students" class="row">
+            <div class="mb-3 col-md-6">
+              <label class="form-label">{{student.studentId}}</label>
+            <input type="text" formControlName="code" class="form-control" [value]="student.studentId" placeholder="Service Code" hidden>
+            </div>
+            
+            <div class="mb-3 col-md-6">
+              <label class="form-label">Mark</label>
+              <input type="number" formControlName="Marks" class="form-control" placeholder="Service Marks">
+              <div *ngIf="f.Marks.invalid && (f.Marks.dirty || f.Marks.touched)"  class="alert alert-danger">
+                <div *ngIf="f.Marks.errors?.['required']">
+                  Student_ID is required.
+                </div>
+                <div *ngIf="f.Marks.errors?.['minlength']">
+                  Student_IDmust be at least 3 characters long.
+                </div>
+              </div>
+            </div>
+          </div>
+          <button [disabled]="serviceForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div> -->
+      <table class="table card-table display mb-4 dataTablesCard text-black" id="example5">
+        <thead>
+          <tr>
+            <th>studentId</th>
+            <th>Name</th>
+            <th>Marks</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of Students">
+            <!-- <td>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="">
+              </div>
+            </td> -->
+            <td><span>{{student.studentId}}</span></td>
+            <td><span>{{student.name}}</span></td>
+            <!-- <td><span th:text="${mark.merchantId}">{{course.faculty}}</span></td> -->
+            <td><span class="text-nowrap"> <input #myInputValue
+                  (keydown.Tab)="onTabPress(student.studentId,myInputValue.value)" type="number" class="form-control"
+                  placeholder="Service Marks"></span></td>
+            <!-- <td><h6 class="fs-16 mb-0 text-nowrap">{{course.date}}</h6></td> -->
+
+          </tr>
+        </tbody>
+      </table>
+      <!-- <button [disabled]="serviceForm.invalid" type="submit" class="btn btn-primary">Submit</button> -->
+    </div>
+  </div>
+</div>

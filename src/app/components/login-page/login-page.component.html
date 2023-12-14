@@ -1,0 +1,55 @@
+<div class="content-body">
+	<div class="login">
+<!-- row -->
+		<div class="row">
+		  <div class="card">
+		    <div class="card-body">
+		      <div *ngIf="loader.isLoading |async">
+		        <ng-template #customLoadingTemplate>
+		            <div class="custom-class">
+		            </div>
+		        </ng-template>
+		    
+		        <mat-spinner></mat-spinner>
+		        </div>
+		        <div *ngIf="Message"  class="alert alert-success">
+		                  {{Message}}
+		              </div>
+		              <div *ngIf="ErrorMessage"  class="alert alert-danger">
+		                  {{ErrorMessage}}
+		              </div>
+		      <div class="basic-form">
+		      	<div class="row page-titles">
+				  <ol class="breadcrumb">
+				    <li class="breadcrumb-item active"><a href="javascript:void(0)">Form</a></li>
+				    <li class="breadcrumb-item"><a href="javascript:void(0)">Login</a></li>
+				  </ol>
+				</div>
+		        <form [formGroup]="serviceForm" (ngSubmit)="OnSubmit()" method="post">
+		          <div class="row">
+		            <div class="mb-3 col-md-12">
+		              <label class="form-label">Username</label>
+		              <input type="text" formControlName="username" class="form-control" placeholder="Admission Number">
+		              <div *ngIf="f.username.invalid && (f.username.dirty || f.username.touched)"  class="alert alert-danger">
+		                <div *ngIf="f.username.errors?.['required']">
+		                 Username is required.
+		                </div>
+		              </div>
+		            </div>
+		            <div class="mb-3 col-md-12">
+		              <label class="form-label">Password</label>
+		              <input type="text" formControlName="password" class="form-control" placeholder="National Id number">
+		              <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)"  class="alert alert-danger">
+		                <div *ngIf="f.password.errors?.['required']">
+		                  Password is required.
+		                </div>
+		              </div>
+		            </div>
+		          </div>
+		          <button [disabled]="serviceForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+		        </form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+</div>
